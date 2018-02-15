@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <link href="todo.css" rel="stylesheet">
+</head>
+<body>
+<div class="todo">
+    <h2 class="todo-title">TODO APP</h2>
+    <div class="todo-wrapper">
+    <input class="todo-input input-create" type="text" placeholder="Add Todo Here">
+    <ul class="todo-list">
+        <li class="li completed">
+            <div class="li-item checkbox"><label class="fill" for="1"><input type="checkbox" id="1" value="on" checked></label></div>
+            <div class="li-item view"><label class="fill">Lorem ipsum</label></div>
+            <div class="li-item delete"><button class="fill list-button">×</button></div>
+        </li>
+        <li>
+            <div class="li-item checkbox"><label class="fill" for="2"><input type="checkbox" id="2" value="on"></label></div>
+            <div class="li-item view"><label class="fill">dolor sit amet</label></div>
+            <div class="li-item delete"><button class="fill list-button">×</button></div>
+        </li>
+        <li>
+            <div class="li-item checkbox"><label class="fill" for="3"><input type="checkbox" id="3" value="on"></label></div>
+            <div class="li-item view"><input class="fill todo-input input-update" type="text" value="dolor sit amet"></div>
+            <div class="li-item delete"><button class="fill list-button">×</button></div>
+        </li>
+        <li>
+            <div class="li-item checkbox"><label class="fill" for="4"><input type="checkbox" id="4" value="on"></label></div>
+            <div class="li-item view"><label class="fill read">consectetur adipisicing elit</label></div>
+            <div class="li-item delete"><button class="fill list-button">×</button></div>
+        </li>
+        <li class="li completed">
+            <div class="li-item checkbox"><label class="fill" for="5"><input type="checkbox" id="5" value="on" checked></label></div>
+            <div class="li-item view"><label class="fill">Accusamus architecto atque aut debitis dolor doloremque, earum eum expedita itaque minus modi odio provident repudiandae sed veniam voluptas voluptatum. Blanditiis, suscipit.</label></div>
+            <div class="li-item delete"><button class="fill list-button">×</button></div>
+        </li>
+    </ul>
+    <div class="todo-footer">
+        <button class="simple-button active">All (5)</button><button class="simple-button">Pending (3)</button><button class="simple-button">Completed (0)</button>
+    </div>
+    </div>
+    <div class="todo-legend">Instructions: Fill input & press enter to create. Double click item to edit. Click "x" to delete.</div>
+</div>
+</div>
+</body>
+</html>
