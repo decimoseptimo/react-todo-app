@@ -12,7 +12,7 @@
     <div class="todo-wrapper">
     <input class="todo-input input-create" type="text" placeholder="Add Todo Here">
     <ul class="todo-list">
-        <!-- Extra elements to test vertical-centering overflow -->
+        <!-- Extra elements to test vertical-centering when elements overflow window height -->
         <!--<li class="li completed">
             <div class="li-item checkbox"><label class="fill" for="1"><input type="checkbox" id="1" value="on" checked></label></div>
             <div class="li-item view"><label class="fill">Lorem ipsum</label></div>
@@ -70,7 +70,8 @@
         </li>
     </ul>
     <div class="todo-menu">
-        <button class="simple-button active">All (5)</button><button class="simple-button">Pending (3)</button><button class="simple-button">Completed (0)</button>
+        <button class="simple-button active"><a href="">All (5)</a></button><button class="simple-button"><a href="">Pending (3)</a></button><button class="simple-button">
+        <a href="">Completed (0)</a></button>
     </div>
     </div>
     <div class="todo-legend">Instructions: Fill input & press enter to create. Double click item to edit. Click "x" to delete.</div>

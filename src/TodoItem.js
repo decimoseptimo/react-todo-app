@@ -26,7 +26,7 @@ export default class TodoItem extends React.Component {
     handleChangeInput(e){
         this.setState({title: e.target.value});
     }
-    handleBlurInput(){
+    handleBlurInput(e){
         this.cancelSumbit();
     }
     handleKeyDownInput(e){
@@ -50,9 +50,6 @@ export default class TodoItem extends React.Component {
             this.textInput.focus();
             this.textInput.setSelectionRange(index, index);
         }
-    }
-    componentWillReceiveProps(){
-        // this.todo = this.props.todo;
     }
 
     //Custom
