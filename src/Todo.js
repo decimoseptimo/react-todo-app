@@ -49,6 +49,13 @@ export default class Todo extends React.Component {
         this.model.save(todo, title);
         this.setState({todos: this.model.todos});
     }
+    handleClickDeleteShown(shownTodosModel, e){
+        e.preventDefault();
+        shownTodosModel.map((todo)=>{
+            this.model.destroy(todo);
+        });
+        this.setState({todos: this.model.todos});
+    }
 
     //Custom
     getCompletedTodos(){
@@ -89,6 +96,7 @@ export default class Todo extends React.Component {
                         <button className={`simple-button ${this.isShown(Todo.ALL_TODOS) ? 'active':''}`}><Link to="/">All ({todos.length})</Link></button>
                         <button className={`simple-button ${this.isShown(Todo.PENDING_TODOS) ? 'active':''}`}><Link to="/pending">Pending ({this.getPendingTodos().length})</Link></button>
                         <button className={`simple-button ${this.isShown(Todo.COMPLETED_TODOS) ? 'active':''}`}><Link to="/completed">Completed ({this.getCompletedTodos().length})</Link></button>
+                        <a href="" className="link1" onClick={this.handleClickDeleteShown.bind(this, shownTodosModel)} >delete<br/>shown</a>
                     </div>
                 </div>
                 <div className="todo-legend">Instructions: [Double-click] to edit, [Enter] to submit, [Esc] to cancel. [Click ×] to delete.</div>
