@@ -51,7 +51,7 @@ export default class Todo extends React.Component {
     }
     handleClickDeleteShown(shownTodosModel, e){
         e.preventDefault();
-        shownTodosModel.map((todo)=>{
+        shownTodosModel.forEach((todo)=>{
             this.model.destroy(todo);
         });
         this.setState({todos: this.model.todos});
@@ -102,7 +102,6 @@ export default class Todo extends React.Component {
                 <div className="todo-legend">Instructions: [Double-click] to edit, [Enter] to submit, [Esc] to cancel. [Click ×] to delete.</div>
             </div>
         );
-        var todos = this.state.todos;
     }
 }
 
