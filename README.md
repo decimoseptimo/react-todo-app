@@ -8,6 +8,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
  
 Everything else is from my own authoring. 
 
-
-#### Demo
+## Demo
 http://www.azulacero.mx/react-todo-app/
