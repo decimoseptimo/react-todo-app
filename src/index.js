@@ -12,7 +12,7 @@ import registerServiceWorker from './registerServiceWorker';
 var model = new app.TodoModel('react-todos');
 
 ReactDOM.render(
-    <BrowserRouter>
+    <BrowserRouter basename={'/react-todo-app'}>
         <Switch>
         <Route exact path="/" render={()=><Todo model={model} shownTodos={Todo.ALL_TODOS} />} />
         <Route exact path="/pending" render={()=><Todo model={model} shownTodos={Todo.PENDING_TODOS} />} />
