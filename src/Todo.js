@@ -16,7 +16,7 @@ export default class Todo extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {todos: this.model.todos, whosEditing: null};
+        this.state = {whosEditing: null};
     }
 
     //Handlers
@@ -24,7 +24,7 @@ export default class Todo extends React.Component {
         switch (e.keyCode){
             case ENTER:
                 this.model.addTodo(e.target.value);
-                this.setState({todos: this.model.todos});
+                this.forceUpdate();
                 e.target.value='';
                 break;
             case ESCAPE:
@@ -36,40 +36,38 @@ export default class Todo extends React.Component {
     }
     handleChangeCheckbox(todo){
         this.model.toggle(todo);
-        this.setState({todos: this.model.todos});
+        this.forceUpdate();
     }
     handleDoubleClickView(todo){
         this.setState({whosEditing: todo});
     }
     handleClickDelete(todo){
         this.model.destroy(todo);
-        this.setState({todos: this.model.todos});
+        this.forceUpdate();
     }
     handleTodoUpdate(todo, title){
         this.model.save(todo, title);
-        this.setState({todos: this.model.todos});
     }
     handleClickDeleteShown(shownTodosModel, e){
         e.preventDefault();
         shownTodosModel.forEach((todo)=>{
             this.model.destroy(todo);
         });
-        this.setState({todos: this.model.todos});
     }
 
     //Custom
     getCompletedTodos(){
-        return this.state.todos.filter(todo=>todo.completed);
+        return this.props.model.todos.filter(todo=>todo.completed);
     }
     getPendingTodos(){
-        return this.state.todos.filter(todo=>!todo.completed);
+        return this.props.model.todos.filter(todo=>!todo.completed);
     }
     isShown(shownTodos){
         return this.props.shownTodos === shownTodos;
     }
 
     render() {
-        var todos = this.state.todos;
+        var todos = this.props.model.todos;
         var shownTodosModel;
 
         switch (this.props.shownTodos){
