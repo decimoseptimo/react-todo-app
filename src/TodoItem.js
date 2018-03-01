@@ -14,11 +14,10 @@ export default class TodoItem extends React.Component {
 
     //Handlers
     handleChangeCheckbox(e){
-        this.props.onChangeCheckbox(this.todo);
-
+        this.props.onChangeCheckbox();
     }
     handleClickDelete(e){
-        this.props.onClickDelete(this.todo);
+        this.props.onClickDelete();
     }
     handleDoubleClickView(e){
         this.props.onDoubleClickView(this.todo);
@@ -32,7 +31,7 @@ export default class TodoItem extends React.Component {
     handleKeyDownInput(e){
         switch (e.keyCode) {
             case ENTER:
-                this.props.onTodoUpdate(this.todo, this.state.title);
+                this.props.onTodoUpdate(this.state.title);
                 this.props.onDoubleClickView(null);
                 break;
             case ESCAPE:

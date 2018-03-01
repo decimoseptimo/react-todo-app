@@ -10,7 +10,7 @@ const ESCAPE = 27;
 export default class Todo extends React.Component {
 
     model = this.props.model;
-    static ALL_TODOS ="all todos";
+    static ALL_TODOS = "all todos";
     static COMPLETED_TODOS = "completed todos";
     static PENDING_TODOS ="pending todos";
 
@@ -89,7 +89,7 @@ export default class Todo extends React.Component {
                     <input className="todo-input input-create" type="text" placeholder="Add Todo Here" onKeyDown={this.handleKeyDownInput.bind(this)}/>
                     <ul className="todo-list">
                         {shownTodosModel.map((todo) => {
-                            return <TodoItem key={todo.id} todo={todo} onClickDelete={this.handleClickDelete.bind(this)} onDoubleClickView={this.handleDoubleClickView.bind(this)} onChangeCheckbox={this.handleChangeCheckbox.bind(this)} onTodoUpdate={this.handleTodoUpdate.bind(this)} isEditing={this.state.whosEditing === todo} />
+                            return <TodoItem key={todo.id} todo={todo} onClickDelete={this.handleClickDelete.bind(this, todo)} onDoubleClickView={this.handleDoubleClickView.bind(this)} onChangeCheckbox={this.handleChangeCheckbox.bind(this, todo)} onTodoUpdate={this.handleTodoUpdate.bind(this, todo)} isEditing={this.state.whosEditing === todo} />
                         })}
                     </ul>
                     <div className="todo-menu">
