@@ -1,12 +1,8 @@
-# React todo app 
+# React Todo App
 
-A simple todo SPA made with [React.js](https://reactjs.org/).
+A todo app made with [React](https://reactjs.org/), [Redux](https://redux.js.org/), & [React router](https://reacttraining.com/react-router/).
 
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). 
-`todoModel.js` and  `utils.js` were sourced from [TodoMVC](https://github.com/tastejs/todomvc/tree/gh-pages/examples/react).
- 
-Everything else is from my own authoring. 
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). Persists data with [Local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) when available.
 
 ## Demo
-http://www.azulacero.mx/react-todo-app/
+http://www.azulacero.mx/react-todo-app-v2/

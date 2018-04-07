@@ -1,9 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 const ENTER = 13;
 const ESCAPE = 27;
 
-export default class TodoItem extends React.Component {
+class TodoItem extends React.Component {
 
     todo = this.props.todo;
 
@@ -14,13 +15,22 @@ export default class TodoItem extends React.Component {
 
     //Handlers
     handleChangeCheckbox(e){
-        this.props.onChangeCheckbox();
+        this.props.dispatch({
+            type: 'TOGGLE_TODO',
+            id: this.todo.id
+        });
     }
     handleClickDelete(e){
-        this.props.onClickDelete();
+        this.props.dispatch({
+            type: 'DELETE_TODO',
+            id: this.todo.id
+        });
     }
     handleDoubleClickView(e){
-        this.props.onDoubleClickView(this.todo);
+        this.props.dispatch({
+            type: 'SET_WHOS_EDITING',
+            id: this.todo.id
+        });
     }
     handleChangeInput(e){
         this.setState({title: e.target.value});
@@ -31,8 +41,15 @@ export default class TodoItem extends React.Component {
     handleKeyDownInput(e){
         switch (e.keyCode) {
             case ENTER:
-                this.props.onTodoUpdate(this.state.title);
-                this.props.onDoubleClickView(null);
+                this.props.dispatch({
+                    type: 'UPDATE_TODO',
+                    id: this.todo.id,
+                    title: this.state.title
+                });
+                this.props.dispatch({
+                    type: 'SET_WHOS_EDITING',
+                    id: null
+                });
                 break;
             case ESCAPE:
                 this.cancelSumbit();
@@ -44,7 +61,7 @@ export default class TodoItem extends React.Component {
 
     //Lifecycle
     componentDidUpdate(){
-        if(this.props.isEditing){
+        if(this.isEditing()){
             var index = this.textInput.value.length;
             this.textInput.focus();
             this.textInput.setSelectionRange(index, index);
@@ -54,15 +71,23 @@ export default class TodoItem extends React.Component {
     //Custom
     cancelSumbit(){
         this.setState({title: this.todo.title});
-        this.props.onDoubleClickView(null);
+        this.props.dispatch({
+            type: 'SET_WHOS_EDITING',
+            id: null
+        });
+    }
+    isEditing(){
+        return this.props.whosEditing === this.todo.id;
     }
 
     render(){
-        this.todo = this.props.todo;
+        const isEditing = this.isEditing();
+        const todo = this.props.todo;
+
         return (
-            <li className={"li " + (this.todo.completed ? "completed":"")}>
-                <div className="li-item checkbox"><label className="fill" htmlFor={this.todo.id}><input type="checkbox" id={this.todo.id} value="on" checked={this.todo.completed}  onChange={this.handleChangeCheckbox.bind(this)}/></label></div>
-                {this.props.isEditing?
+            <li className={"li " + (todo.completed ? "completed":"")}>
+                <div className="li-item checkbox"><label className="fill" htmlFor={todo.id}><input type="checkbox" id={todo.id} value="on" checked={todo.completed}  onChange={this.handleChangeCheckbox.bind(this)}/></label></div>
+                {isEditing?
                     <div className="li-item view"><input ref={(input) => { this.textInput = input; }} className="fill todo-input input-update" type="text" value={this.state.title} onKeyDown={this.handleKeyDownInput.bind(this)} onChange={this.handleChangeInput.bind(this)} onBlur={this.handleBlurInput.bind(this)} /></div>:
                     <div className="li-item view"><label className="fill" onDoubleClick={this.handleDoubleClickView.bind(this)}>{this.state.title}</label></div>
                 }
@@ -71,3 +96,11 @@ export default class TodoItem extends React.Component {
         );
     }
 }
+
+function mapStateToProps(state){
+    return {
+        whosEditing: state.whosEditing
+    };
+}
+
+export default connect(mapStateToProps)(TodoItem);

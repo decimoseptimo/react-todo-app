@@ -1,29 +1,73 @@
-/* eslint import/no-webpack-loader-syntax: off */
-/* global app */
-import 'script-loader!./utils.js';
-import 'script-loader!./todoModel.js';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
+import {createStore, combineReducers} from 'redux';
+import {Provider} from 'react-redux';
 import Todo from './Todo';
-import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 
-var model = new app.TodoModel('react-todos');
+const reducer = combineReducers({
+    whosEditing,
+    todos
+});
+
+var store = createStore(reducer);
+
+//Reducers
+function whosEditing(state=null, action){
+    switch (action.type){
+        case 'SET_WHOS_EDITING':
+            return action.id;
+        default:
+            return state;
+    }
+}
+function todos(state=[], action){
+    switch (action.type){
+        case 'ADD_TODO':
+            return [...state, {
+                id: action.id,
+                title: action.title,
+                completed: false
+            }];
+        case 'TOGGLE_TODO':
+            return state.map((todo)=>{
+                if(todo.id === action.id){
+                    return {...todo, completed: !todo.completed}
+                }
+                return todo;
+            });
+        case 'UPDATE_TODO':
+            return state.map((todo)=>{
+                if(todo.id === action.id){
+                    return {...todo, title: action.title}
+                }
+                return todo;
+            });
+        case 'DELETE_TODO':
+            return state.filter((todo)=>{
+                return todo.id !== action.id;
+            });
+        case 'DELETE_SHOWN_TODOS':
+            switch (action.matchUrl){
+                case '/pending':
+                    return state.filter(todo=>todo.completed);
+                case '/completed':
+                    return state.filter(todo=>!todo.completed);
+                default:
+                    return [];
+            }
+        default:
+            return state;
+    }
+}
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Switch>
-        <Route exact path="/" render={()=><Todo model={model} shownTodos={Todo.ALL_TODOS} />} />
-        <Route exact path="/pending" render={()=><Todo model={model} shownTodos={Todo.PENDING_TODOS} />} />
-        <Route exact path="/completed" render={()=><Todo model={model} shownTodos={Todo.COMPLETED_TODOS} />} />
-        <Redirect to="/"/>
-        </Switch>
-    </BrowserRouter>,
+    <Provider store={store}>
+        <BrowserRouter>
+            <Route path="/:filter?" component={Todo} />
+        </BrowserRouter>
+    </Provider>,
     document.getElementById('root')
 );
 registerServiceWorker();
-
-// Props based on url
-// <Route path="/:page" children={(props)=>{
-// var page = !props.match ? "/": props.match.params.showTodos;}>
