@@ -4,14 +4,20 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import Todo from './Todo';
+import {getLocalState, setLocalState} from './localState';
 import registerServiceWorker from './registerServiceWorker';
 
+const localState = getLocalState();
 const reducer = combineReducers({
     whosEditing,
     todos
 });
 
-var store = createStore(reducer);
+var store = createStore(reducer, localState);
+
+store.subscribe(() => {
+    setLocalState(store.getState());
+});
 
 //Reducers
 function whosEditing(state=null, action){
